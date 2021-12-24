@@ -1,0 +1,28 @@
+.game-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-wrapper img {
+    height: 600px;
+    width: 400px;
+}
+
+.game-info p {
+    font-size: 30px;
+    margin-bottom: 35px;
+}
+
+#title {
+    font-size: 40px;
+}
+
+.rating p {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 7px;
+    vertical-align: middle;
+}

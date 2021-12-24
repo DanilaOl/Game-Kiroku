@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
+@font-face {
+    font-family: "Metag";
+    src: url(../static/METAG___.TTF);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "IBM Plex Mono";
+}
+
+body {
+    background-color: #f7dbdb;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #9a1010;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding-right: 20px;
+}
+
+header * {
+    color: #faeeee;
+}
+
+#logo {
+    font-family: "Metag";
+    text-decoration: none;
+    font-size: 40px;
+    margin: 15px 0 15px 60px;
+}
+
+.dropbutton {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.dropbutton:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.dropbutton span {
+    margin-right: 15px;
+    font-size: 30px;
+}
+
+.dropbutton img {
+    width: 60px;
+    height: 60px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #9a1010;
+    line-height: 75px;
+}
+
+.show {
+    display: block
+}
+
+.dropdown-content a {
+    width: 100%;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 30px;
+    height: 75px;
+    text-decoration: none;
+    transition-duration: 0.2s;
+    padding-left: 20px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.main {
+    background-color: #ffffff;
+    margin: 60px 170px 170px;
+    padding: 43px 30px;
+    color: #9a1010;
+    height: 100%;
+}
+
+footer {
+    background-color: #9a1010;
+    color: #faeeee;
+    display: flex;
+    align-items: flex-end;
+    font-size: 20px;
+    padding: 10px 170px;
+    position: relative;
+}
+
+footer img {
+    height: 80px;
+    width: 80px;
+    margin-right: 10px;
+}
