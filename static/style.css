@@ -37,7 +37,11 @@ header * {
     margin: 15px 0 15px 60px;
 }
 
-.dropbutton {
+.menu {
+    position: relative;
+}
+
+.menu-dropbutton {
     padding: 8px 20px;
     display: flex;
     align-items: center;
@@ -46,25 +50,21 @@ header * {
     transition-duration: 0.2s;
 }
 
-.dropbutton:hover {
+.menu-dropbutton:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-.dropbutton span {
+.menu-dropbutton span {
     margin-right: 15px;
     font-size: 30px;
 }
 
-.dropbutton img {
+.menu-dropbutton img {
     width: 60px;
     height: 60px;
 }
 
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
+.menu-dropcontent {
     display: none;
     position: absolute;
     width: 100%;
@@ -76,7 +76,7 @@ header * {
     display: block
 }
 
-.dropdown-content a {
+.menu-dropcontent a {
     width: 100%;
     display: block;
     background-color: rgba(255, 255, 255, 0.2);
@@ -87,7 +87,7 @@ header * {
     padding-left: 20px;
 }
 
-.dropdown-content a:hover {
+.menu-dropcontent a:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 

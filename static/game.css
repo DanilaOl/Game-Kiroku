@@ -10,11 +10,60 @@
 
 .game-info p {
     font-size: 30px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 #title {
     font-size: 40px;
+}
+
+.addto {
+    width: 65%;
+}
+
+.addto-dropbutton {
+    background-color: #9A1010;
+    color: #FAEEEE;
+    font-size: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.addto-dropbutton::after {
+    content: "";
+    border: 10px solid transparent;
+    display: inline-flex;
+    border-left: 10px solid #FAEEEE;
+    border-right: none;
+    vertical-align: middle;
+    transform: rotate(90deg);
+    transition-duration: 0.1s;
+}
+
+.addto-dropcontent {
+    display: none;
+    border: 2px solid #9A1010;
+}
+
+.addto-dropcontent div {
+    cursor: pointer;
+    font-size: 30px;
+    padding: 5px 20px;
+    transition-duration: 0.1s;
+    background-color: #FAEEEE;
+}
+
+.addto-dropcontent div:hover {
+    background-color: #9A1010;
+    color: #FAEEEE;
+}
+
+.show {
+    display: block;
+}
+
+.show::after {
+    transform: rotate(0);
 }
 
 .rating p {
@@ -23,6 +72,12 @@
 }
 
 select {
-    padding: 7px;
+    font-size: 25px;
+    /* padding: 7px; */
     vertical-align: middle;
+    color: #9A1010;
+}
+
+select option {
+    font-size: 16px;
 }
