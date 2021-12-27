@@ -37,16 +37,17 @@
 
 .list table {
     width: 90%;
-    border: 1px solid #707070;
+    border: 1px solid #9A1010;
     border-collapse: collapse;
+    background-color: #FAEEEE;
 }
 
 .list tr {
-    border: 1px solid #707070;
+    border: 1px solid #9A1010;
 }
 
 .list td {
-    border: 1px solid #707070;
+    border: 1px solid #9A1010;
     padding: 5px 20px;
     font-size: 16px;
 }

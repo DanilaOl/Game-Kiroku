@@ -13,6 +13,7 @@
 
 body {
     background-color: #f7dbdb;
+    /* background: linear-gradient(#FAEEEE, #9A1010, #FAEEEE); */
 }
 
 header {
@@ -95,10 +96,10 @@ header * {
     background-color: #ffffff;
     width: 81%;
     margin: 60px auto 170px;
-    /* margin: 60px 170px 170px; */
     padding: 43px 30px;
     color: #9a1010;
     height: 100%;
+    border-radius: 10px;
 }
 
 .title {

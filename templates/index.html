@@ -12,14 +12,14 @@
 
 <body>
     <header>
-        <a href="#" id="logo">Game-Kiroku</a>
+        <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
                 <span>[Username]</span>
                 <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
-                <a href="#">Профиль</a>
+                <a href="user.html">Профиль</a>
                 <a href="#">Выход</a>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <p class="title">Популярное</p>
         <div class="card-wrapper">
             <div class="card">
-                <a href="#" class="game_name">[Game_name]</a>
+                <a href="game.html" class="game_name">[Game_name]</a>
                 <img src="https://imgholder.ru/200x300/8493a8/fff&text=200x300&font=kelson" alt="[Game_name]">
             </div>
             <div class="card">
