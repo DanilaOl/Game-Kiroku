@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='../static/style.css' , rel='stylesheet'>
+    <link href='../static/user.css' , rel='stylesheet'>
+    <title>Game-Kiroku</title>
+</head>
+
+<body>
+    <header>
+        <a href="#" id="logo">Game-Kiroku</a>
+        <div class="menu">
+            <div onclick="menuToggle()" class="menu-dropbutton">
+                <span>[Username]</span>
+                <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
+            </div>
+            <div id="menuContent" class="menu-dropcontent">
+                <a href="#">Профиль</a>
+                <a href="#">Выход</a>
+            </div>
+        </div>
+        <!-- .dropdown -->
+    </header>
+    <div class="main">
+        <p class="title">[Username]</p>
+        <div class="user">
+            <img src="https://imgholder.ru/300x300/8493a8/fff&text=300x300&font=kelson" alt="Avatar">
+            <div class="user-info">
+                <p>Запланировано: [x]</p>
+                <p>Пройдено: [x]</p>
+                <p>Брошено: [x]</p>
+                <p>Отложено: [x]</p>
+                <p>[Status_example]</p>
+            </div>
+        </div>
+        <div class="list-wrapper">
+            <div class="list">
+                <p>Запланировано</p>
+                <table>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="list">
+                <p>Пройдено</p>
+                <table>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="list">
+                <p>Брошено</p>
+                <table>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="list">
+                <p>Отложено</p>
+                <table>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                    <tr>
+                        <td class=table-game-name><a href="#">[Game_name]</a></td>
+                        <td>-/10</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- .main -->
+    <footer>
+        <img src="../static/VIMO_Games_Logo_80x80.png" alt="VIMO_Games_NDU">
+        <span>©VIMO NDU Москва, 2021</span>
+    </footer>
+    <script src="../static/script.js"></script>
+</body>
+
+</html>

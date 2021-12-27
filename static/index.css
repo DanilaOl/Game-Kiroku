@@ -1,10 +1,5 @@
-.main p {
-    font-weight: bold;
-    font-size: 40px;
-}
-
 .card-wrapper {
-    margin: 23px 0px 52px -9px;
+    margin: 0 -7px 52px -8px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -13,7 +8,7 @@
 .card {
     text-align: center;
     position: relative;
-    margin: 0 8px;
+    margin: 0 7px 8px;
 }
 
 .card img {

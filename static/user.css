@@ -1,0 +1,65 @@
+.user {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 90px;
+}
+
+.user img {
+    height: 300px;
+    width: 300px;
+    margin-right: 40px;
+}
+
+.user-info {
+    margin-top: -6px;
+}
+
+.user-info p {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.list-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.list {
+    width: 50%;
+    margin-bottom: 60px;
+}
+
+.list p {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.list table {
+    width: 90%;
+    border: 1px solid #707070;
+    border-collapse: collapse;
+}
+
+.list tr {
+    border: 1px solid #707070;
+}
+
+.list td {
+    border: 1px solid #707070;
+    padding: 5px 20px;
+    font-size: 16px;
+}
+
+.list a {
+    color: #9A1010;
+    text-decoration: none;
+}
+
+.list a:hover {
+    text-decoration: underline;
+}
+
+.table-game-name {
+    width: 90%;
+}
