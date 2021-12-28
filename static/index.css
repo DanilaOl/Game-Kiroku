@@ -9,6 +9,7 @@
     text-align: center;
     position: relative;
     margin: 0 7px 8px;
+    vertical-align: middle;
 }
 
 .card img {
@@ -16,21 +17,28 @@
     height: 300px;
 }
 
-.game_name {
+.card-name {
     position: absolute;
     width: 100%;
-    line-height: 300px;
-    /* Error */
-    font-size: 20px;
+    height: 98.69%;
     background-color: rgba(154, 16, 16, 0.7);
-    color: #faeeee;
-    text-decoration: none;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 0.5s
+    transition: visibility 0s, opacity 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
-.card:hover .game_name {
+.game-name {
+    font-size: 20px;
+    color: #faeeee;
+    text-decoration: none;
+    
+}
+
+.card:hover .card-name {
     visibility: visible;
     opacity: 1;
 }
