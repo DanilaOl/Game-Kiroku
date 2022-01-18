@@ -8,6 +8,10 @@
     width: 400px;
 }
 
+.game-info {
+    margin: 0 30px;
+}
+
 .game-info p {
     font-size: 30px;
     margin-bottom: 30px;
@@ -18,7 +22,7 @@
 }
 
 .addto {
-    width: 65%;
+    width: 24em;
 }
 
 .addto-dropbutton {

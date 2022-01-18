@@ -1,19 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
-from models import get_games, add_user
+from models import get_games, get_game_info, add_user
 
 
 app = Flask(__name__)
-app.secret_key = 'kirokupass'
+app.secret_key = 'KirokuPass'
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     all_games = get_games()
     return render_template('index.html', games=all_games)
-
-# @app.route('/games/<game_id>')
-# def game_page(game_id):
-#     games = get_games()
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -36,5 +32,35 @@ def user_page(name):
     return render_template('user.html', name=name)
 
 
+@app.route('/game/<id_game>')
+def game_page(id_game):
+    game = get_game_info(id_game)
+    return render_template('game.html', game=game)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'kirokupass'

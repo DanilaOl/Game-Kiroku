@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href='../static/style.css' , rel='stylesheet'>
     <link href='../static/game.css' , rel='stylesheet'>
-    <title>[Game_name]</title>
+    <title>{{ game.Game_name }} - Game-Kiroku</title>
 </head>
 
 <body>
     <header>
-        <a href="index.html" id="logo">Game-Kiroku</a>
+        <a href={{ url_for('index') }} id="logo">Game-Kiroku</a>
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
                 <span>[Username]</span>
@@ -29,10 +29,10 @@
         <div class="game-wrapper">
             <img src="https://imgholder.ru/400x600/8493a8/fff&text=400x600&font=kelson" alt="[Game_name]">
             <div class="game-info">
-                <p id="title">[Game_name]</p>
-                <p>Дата выхода: [01.01.1970]</p>
-                <p>Студия-разработчик: [Studio_name]</p>
-                <p>[Description]</p>
+                <p id="title">{{ game.Game_name }}</p>
+                <p>Дата выхода: {{ game.Release_date }}</p>
+                <p>Студия-разработчик: {{ game.developer.Studio_name }}</p>
+                <p>{{ game.Description }}</p>
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
                         <span>Добавить в список </span>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="rating">
-                <p>Рейтинг:[x]/10</p>
+                <p>Рейтинг:{{ game.Rating }}/10</p>
                 <form action="">
                     <p>Оценка:
                         <select name="rating" id="rate">
@@ -75,3 +75,4 @@
 </body>
 
 </html>
+<!-- Перенести кнопку под постер. Инфо увеличить, описание оставить так же. -->

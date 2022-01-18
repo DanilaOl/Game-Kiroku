@@ -31,7 +31,7 @@
             {% for game in games %}
             <div class="card">
                 <div class="card-name">
-                    <a href="#" class="game-name">{{ game.Game_name }}</a>
+                    <a href={{ url_for('game_page', id_game=game.ID_game) }} class="game-name">{{ game.Game_name }}</a>
                 </div>
                 <img src="https://imgholder.ru/200x300/8493a8/fff&text=200x300&font=kelson" alt="[Game_name]">
             </div>

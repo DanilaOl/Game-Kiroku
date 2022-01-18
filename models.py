@@ -28,6 +28,14 @@ def get_games():
     return all_games
 
 
+def get_game_info(id_game):
+    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
+                           echo=True)
+    session = Session(bind=engine)
+    game = session.query(Game).get(id_game)
+    return game
+
+
 def add_user(name, email, password):
     engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
                            echo=True)
