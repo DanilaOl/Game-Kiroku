@@ -31,8 +31,13 @@
             <div class="game-info">
                 <p id="title">{{ game.Game_name }}</p>
                 <p>Дата выхода: {{ game.Release_date }}</p>
-                <p>Студия-разработчик: {{ game.developer.Studio_name }}</p>
+                <p>Разработчик: {{ game.developer.Studio_name }}</p>
+                {% if game.publisher.Publisher_name != NULL %}
+                <p>Издатель: {{ game.publisher.Publisher_name }}</p>
+                {% endif %}
+                {% if game.Description != None %}
                 <p>{{ game.Description }}</p>
+                {% endif %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
                         <span>Добавить в список </span>
