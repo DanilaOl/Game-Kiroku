@@ -26,13 +26,13 @@
         <!-- .dropdown -->
     </header>
     <div class="main">
-        <form action="">
+        <form method="POST">
             <label>E-mail</label>
             <input type="email" maxlength="30" name="email" placeholder="name@mail.com" required><br>
             <label>Пароль</label>
             <input type="password" minlength="8" maxlength="50" name="password" placeholder="8-50 символов" required><br>
             <input type="submit" value="Войти">
-            <a href="../templates/register.html">Зарегистрироваться</a>
+            <a href={{ url_for('register') }}>Зарегистрироваться</a>
         </form>
     </div>
     <!-- .main -->

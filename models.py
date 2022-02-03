@@ -19,6 +19,12 @@ Publisher = Base.classes.Publisher
 Users = Base.classes.Users
 
 
+class AccountNotFound(Exception):
+    """
+    Account not found in database
+    """
+
+
 def get_games():
     engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
                            echo=True)
@@ -45,3 +51,13 @@ def add_user(name, email, password):
     session.commit()
     session.close()
 
+
+def get_user(email, password):
+    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
+                           echo=True)
+    session = Session(bind=engine)
+    user = session.query(Users).filter_by(Email=email).first()
+    session.close()
+    if not user or (password != user.Password):
+        raise AccountNotFound
+    return user.Nickname

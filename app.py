@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
-from models import get_games, get_game_info, add_user
+from models import get_games, get_game_info, add_user, get_user
 
 
 app = Flask(__name__)
@@ -25,6 +25,17 @@ def register():
         session['account'] = name
         return redirect('/users/' + name)
     return render_template('register.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        name = get_user(email, password)
+        session['account'] = name
+        return redirect('/users/' + name)
+    return render_template('login.html')
 
 
 @app.route('/users/<name>')
