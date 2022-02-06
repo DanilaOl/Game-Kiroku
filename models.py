@@ -60,4 +60,4 @@ def get_user(email, password):
     session.close()
     if not user or (password != user.Password):
         raise AccountNotFound
-    return user.Nickname
+    return user
