@@ -61,3 +61,12 @@ def get_user(email, password):
     if not user or (password != user.Password):
         raise AccountNotFound
     return user
+
+
+def search(query):
+    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
+                           echo=True)
+    session = Session(bind=engine)
+    searched_games = session.query(Game).filter(Game.Game_name.like(f"%{query}%")).all()
+    session.close()
+    return searched_games

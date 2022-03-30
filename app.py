@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
-from models import get_games, get_game_info, add_user, get_user
+from models import get_games, get_game_info, add_user, get_user, search
 
 
 def create_app():
@@ -8,8 +8,13 @@ def create_app():
 
     @app.route('/', methods=['GET', 'POST'])
     def index():
-        all_games = get_games()
-        return render_template('index.html', games=all_games)
+        search_content = request.args.get('search-content')
+        if search_content and search_content != '':
+            searched_games = search(search_content)
+            return render_template('index.html', games=searched_games)
+        else:
+            all_games = get_games()
+            return render_template('index.html', games=all_games)
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
@@ -49,4 +54,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=False)
+    app.run(debug=True)

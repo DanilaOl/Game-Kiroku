@@ -13,6 +13,12 @@
 <body>
     <header>
         <a href={{ url_for('index') }} id="logo">Game-Kiroku</a>
+        <div class="search-form">
+            <form method="GET">
+                <input type="search" name="search-content" placeholder="Поиск..." class="search">
+                <input type="submit" value="Найти" class="search">
+            </form>
+        </div>
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
                 <span>[Username]</span>
@@ -23,7 +29,7 @@
                 <a href="#">Выход</a>
             </div>
         </div>
-        <!-- .dropdown -->
+        <!-- .menu -->
     </header>
     <div class="main">
         <p class="title">{{name}}</p>

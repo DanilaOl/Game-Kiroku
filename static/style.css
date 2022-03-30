@@ -65,12 +65,15 @@ header * {
 .search[name='search-content'] {
     width: 60%;
     color: #9a1010;
+    background-color: #faeeee;
 }
 
 .search[type='submit'] {
     background-color: #9a1010;
     padding: 0px 5px;
-    border: 1px solid #faeeee;
+    border: 2px solid #faeeee;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 .menu {
