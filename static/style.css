@@ -38,6 +38,41 @@ header * {
     margin: 15px 0 15px 60px;
 }
 
+.search-form {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.search-form form {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.search {
+    line-height: 35px;
+    font-size: 20px;
+    height: 100%;
+    outline: none;
+    display: block;
+    border: 0;
+    padding: 5px;
+}
+
+.search[name='search-content'] {
+    width: 60%;
+    color: #9a1010;
+}
+
+.search[type='submit'] {
+    background-color: #9a1010;
+    padding: 0px 5px;
+    border: 1px solid #faeeee;
+}
+
 .menu {
     position: relative;
 }
