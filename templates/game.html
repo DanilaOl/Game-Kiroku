@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href='../static/style.css' , rel='stylesheet'>
     <link href='../static/game.css' , rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/63cd46c35b.js" crossorigin="anonymous"></script>
     <title>{{ game.Game_name }} - Game-Kiroku</title>
 </head>
 
@@ -14,26 +15,32 @@
     <header>
         <a href={{ url_for('index') }} id="logo">Game-Kiroku</a>
         <div class="search-form">
-            <form method="GET">
+            <form method="GET" action="/">
                 <input type="search" name="search-content" placeholder="Поиск..." class="search">
-                <input type="submit" value="Найти" class="search">
+                <input type="submit" value="&#xf002" class="search fa-solid fa-magnifying-glass">
             </form>
         </div>
+        {% if user != None %}
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
-                <span>[Username]</span>
+                <span>{{ user }}</span>
                 <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
-                <a href="user.html">Профиль</a>
-                <a href="#">Выход</a>
+                <a href={{ url_for('user_page', name=user) }}>Профиль</a>
+                <a href={{ url_for('logout') }}>Выход</a>
             </div>
         </div>
+        {% else %}
+        <div class="menu-dropbutton">
+            <a href={{ url_for('login') }}>Войти</a>
+        </div>
+        {% endif %}
         <!-- .menu -->
     </header>
     <div class="main">
         <div class="game-wrapper">
-            <img src="https://imgholder.ru/400x600/8493a8/fff&text=400x600&font=kelson" alt="[Game_name]">
+            <img src={{ game.Poster }} alt={{ game.Game_name }}>
             <div class="game-info">
                 <p id="title">{{ game.Game_name }}</p>
                 <p>Дата выхода: {{ game.Release_date }}</p>

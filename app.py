@@ -9,12 +9,14 @@ def create_app():
     @app.route('/', methods=['GET', 'POST'])
     def index():
         search_content = request.args.get('search-content')
+        if 'account' not in session:
+            session['account'] = None
         if search_content and search_content != '':
             searched_games = search(search_content)
-            return render_template('index.html', games=searched_games)
+            return render_template('index.html', games=searched_games, search=True, user=session['account'])
         else:
             all_games = get_games()
-            return render_template('index.html', games=all_games)
+            return render_template('index.html', games=all_games, user=session['account'])
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
@@ -26,8 +28,7 @@ def create_app():
             if password != password_check:
                 return render_template('register.html', error='pass_not_match')
             add_user(name, email, password)
-            session['account'] = name
-            return redirect('/users/' + name)
+            return redirect('/login')
         return render_template('register.html')
 
     @app.route('/login', methods=['GET', 'POST'])
@@ -37,17 +38,26 @@ def create_app():
             password = request.form['password']
             user = get_user(email, password)
             session['account'] = user.Nickname
-            return redirect('/users/' + user.Nickname)
+            return redirect('/users/' + session['account'])
         return render_template('login.html')
 
     @app.route('/users/<name>')
     def user_page(name):
-        return render_template('user.html', name=name)
+        if 'account' not in session:
+            session['account'] = None
+        return render_template('user.html', name=name, user=session['account'])
 
     @app.route('/game/<id_game>')
     def game_page(id_game):
+        if 'account' not in session:
+            session['account'] = None
         game = get_game_info(id_game)
-        return render_template('game.html', game=game)
+        return render_template('game.html', game=game, user=session['account'])
+
+    @app.route('/logout')
+    def logout():
+        session.pop('account', None)
+        return redirect('/')
 
     return app
 

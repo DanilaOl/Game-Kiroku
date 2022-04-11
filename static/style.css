@@ -13,7 +13,9 @@
 
 body {
     background-color: #f7dbdb;
-    /* background: linear-gradient(#FAEEEE, #9A1010, #FAEEEE); */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -68,6 +70,19 @@ header * {
     background-color: #faeeee;
 }
 
+input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    /* border: 1px solid #000; */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z' fill='%239a1010'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    color:#9a1010;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+
 .search[type='submit'] {
     background-color: #9a1010;
     padding: 0px 5px;
@@ -94,11 +109,17 @@ header * {
 }
 
 .menu-dropbutton span {
-    margin-right: 15px;
     font-size: 30px;
 }
 
+.menu-dropbutton a{
+    text-decoration: none;
+    font-size: 30px;
+    margin: 0 20px;
+}
+
 .menu-dropbutton img {
+    margin-left: 15px;
     width: 60px;
     height: 60px;
 }
@@ -138,6 +159,7 @@ header * {
     color: #9a1010;
     height: 100%;
     border-radius: 10px;
+    flex-grow: 1;
 }
 
 .title {
@@ -149,11 +171,12 @@ header * {
 footer {
     background-color: #9a1010;
     color: #faeeee;
+    flex-shrink: 0;
     display: flex;
     align-items: flex-end;
+    width: 100%;
     font-size: 20px;
     padding: 10px 170px;
-    position: relative;
 }
 
 footer img {

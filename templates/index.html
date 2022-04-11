@@ -20,27 +20,35 @@
                 <input type="submit" value="&#xf002" class="search fa-solid fa-magnifying-glass">
             </form>
         </div>
+        {% if user != None %}
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
-                <span>[Username]</span>
+                <span>{{ user }}</span>
                 <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
-                <a href="user.html">Профиль</a>
-                <a href="#">Выход</a>
+                <a href={{ url_for('user_page', name=user) }}>Профиль</a>
+                <a href={{ url_for('logout') }}>Выход</a>
             </div>
         </div>
+        {% else %}
+        <div class="menu-dropbutton">
+            <a href={{ url_for('login') }}>Войти</a>
+        </div>
+        {% endif %}
         <!-- .menu -->
     </header>
     <div class="main">
-        <p class="title">Популярное</p>
+        {% if search %}
+        <p class="title">Результаты поиска:</p>
+        {% else %}
+        <p class="title">Все игры</p>
+        {% endif %}
         <div class="card-wrapper">
             {% for game in games %}
             <div class="card">
-                <div class="card-name">
-                    <a href={{ url_for('game_page', id_game=game.ID_game) }} class="game-name">{{ game.Game_name }}</a>
-                </div>
-                <img src="https://imgholder.ru/200x300/8493a8/fff&text=200x300&font=kelson" alt="[Game_name]">
+                <a href={{ url_for('game_page', id_game=game.ID_game) }} class="card-name">{{ game.Game_name }}</a>
+                <img src={{ game.Poster }} alt={{ game.Game_name }}>
             </div>
             {% endfor %}
         </div>
@@ -53,5 +61,4 @@
     </footer>
     <script src="../static/script.js"></script>
 </body>
-
 </html>

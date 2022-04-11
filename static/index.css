@@ -29,13 +29,9 @@
     align-items: center;
     justify-content: center;
     vertical-align: middle;
-}
-
-.game-name {
     font-size: 20px;
     color: #faeeee;
     text-decoration: none;
-    
 }
 
 .card:hover .card-name {
