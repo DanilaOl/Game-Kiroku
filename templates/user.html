@@ -43,66 +43,35 @@
         <div class="user">
             <img src="https://imgholder.ru/300x300/8493a8/fff&text=300x300&font=kelson" alt="Avatar">
             <div class="user-info">
-                <p>Запланировано: [x]</p>
-                <p>Пройдено: [x]</p>
-                <p>Брошено: [x]</p>
-                <p>Отложено: [x]</p>
+                <p>Запланировано: {{ list_counts.planned }}</p>
+                <p>Пройдено: {{ list_counts.completed }}</p>
+                <p>Брошено: {{ list_counts.dropped }}</p>
+                <p>Отложено: {{ list_counts.postponed }}</p>
                 <p>[Status_example]</p>
             </div>
         </div>
         <div class="list-wrapper">
+            {% for key, list in lists.items() %}
+            {% if list %}
             <div class="list">
-                <p>Запланировано</p>
+                <p>{% if key == 'planned' %}Запланировано
+                    {% elif key == 'completed' %}Пройдено
+                    {% elif key == 'dropped' %}Брошено
+                    {% elif key == 'postponed' %}Отложено
+                    {% endif %}
+                </p>
                 <table>
+                    {% for item in list %}
                     <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
+                        <td class=table-game-name><a href={{ url_for('game_page', id_game=item.ID_game) }}>{{ item.game.Game_name }}</a></td>
+                        <td>{% if item.Rated == None %}-{% else %}{{ item.Rated|int }}{% endif %}/10</td>
                     </tr>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
-            <div class="list">
-                <p>Пройдено</p>
-                <table>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="list">
-                <p>Брошено</p>
-                <table>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="list">
-                <p>Отложено</p>
-                <table>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                    <tr>
-                        <td class=table-game-name><a href="#">[Game_name]</a></td>
-                        <td>-/10</td>
-                    </tr>
-                </table>
-            </div>
+            {% endif %}
+            {% endfor %}
+            
         </div>
     </div>
     <!-- .main -->

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
-from models import get_games, get_game_info, add_user, get_user, search
+from models import get_games, get_game_info, add_user, get_user, search, get_user_lists, count_user_lists
 
 
 def create_app():
@@ -45,7 +45,9 @@ def create_app():
     def user_page(name):
         if 'account' not in session:
             session['account'] = None
-        return render_template('user.html', name=name, user=session['account'])
+        user_lists = get_user_lists(name)
+        list_counts = count_user_lists(name)
+        return render_template('user.html', name=name, lists=user_lists, list_counts=list_counts, user=session['account'])
 
     @app.route('/game/<id_game>')
     def game_page(id_game):
