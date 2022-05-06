@@ -24,7 +24,7 @@
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
                 <span>{{ user }}</span>
-                <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
+                <img src={{ user_photo }} alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
                 <a href={{ url_for('user_page', name=user) }}>Профиль</a>

@@ -8,7 +8,7 @@
     <link href='../static/style.css' , rel='stylesheet'>
     <link href='../static/game.css' , rel='stylesheet'>
     <script src="https://kit.fontawesome.com/63cd46c35b.js" crossorigin="anonymous"></script>
-    <title>{{ game.Game_name }} - Game-Kiroku</title>
+    <title>{{ game_data['Game'].Game_name }} - Game-Kiroku</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
         <div class="menu">
             <div onclick="menuToggle()" class="menu-dropbutton">
                 <span>{{ user }}</span>
-                <img src="https://imgholder.ru/60x60/8493a8/fff&text=60%D1%8560&font=kelson" alt="Avatar">
+                <img src={{ user_photo }} alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
                 <a href={{ url_for('user_page', name=user) }}>Профиль</a>
@@ -40,16 +40,16 @@
     </header>
     <div class="main">
         <div class="game-wrapper">
-            <img src={{ game.Poster }} alt={{ game.Game_name }}>
+            <img src={{ game_data['Game'].Poster }} alt={{ game_data['Game'].Game_name }}>
             <div class="game-info">
-                <p id="title">{{ game.Game_name }}</p>
-                <p>Дата выхода: {{ game.Release_date }}</p>
-                <p>Разработчик: {{ game.developer.Studio_name }}</p>
-                {% if game.publisher.Publisher_name != NULL %}
-                <p>Издатель: {{ game.publisher.Publisher_name }}</p>
+                <p id="title">{{ game_data['Game'].Game_name }}</p>
+                <p>Дата выхода: {{ game_data['Game'].Release_date }}</p>
+                <p>Разработчик: {{ game_data['Developer'].Studio_name }}</p>
+                {% if game_data['Publisher'].Publisher_name != NULL %}
+                <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
                 {% endif %}
-                {% if game.Description != None %}
-                <p>{{ game.Description }}</p>
+                {% if game_data['Game'].Description != None %}
+                <p>{{ game_data['Game'].Description }}</p>
                 {% endif %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="rating">
-                <p>Рейтинг:{{ game.Rating }}/10</p>
+                <p>Рейтинг:{{ game_data['Game'].Rating }}/10</p>
                 <form action="">
                     <p>Оценка:
                         <select name="rating" id="rate">

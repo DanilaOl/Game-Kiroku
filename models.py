@@ -1,16 +1,17 @@
-from sqlalchemy import Column, Integer, Float, String, Boolean, Text, Date, ForeignKey, create_engine, MetaData, Table, func
-from sqlalchemy.orm import relationship, Session, sessionmaker, mapper
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import create_engine, func
+from sqlalchemy.ext.automap import automap_base
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+# подключение к базе данных
 engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
                        echo=True)
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
+# назначение сущностей определённым классам
 Developer = Base.classes.Developer
 Game = Base.classes.Game
 Genre = Base.classes.Genre
@@ -26,70 +27,84 @@ class AccountNotFound(Exception):
 
 
 def get_games():
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                           echo=True)
+    # создание сессии, в рамках которой будет происходить обращение к БД
     session = Session(bind=engine)
+    # запрос на получение записей обо всех играх
     all_games = session.query(Game).all()
+    # закрытие сессии
     session.close()
     return all_games
 
 
 def get_game_info(id_game):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                           echo=True)
     session = Session(bind=engine)
-    game = session.query(Game).get(id_game)
+    # запрос на получение записи об игре вместе с информацией о разработчике и издателе
+    game = (session.query(Game, Developer, Publisher)
+            .outerjoin(Developer)
+            .outerjoin(Publisher)
+            .filter(Game.ID_game == id_game)
+            .first())
+    session.close()
     return game
 
 
 def add_user(name, email, password):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                           echo=True)
     session = Session(bind=engine)
+    # создание экземпляра класса User с введёнными параметрами
     user = Users(Nickname=name, Email=email, Password=password)
+    # добавление пользователя в БД
     session.add(user)
     session.commit()
     session.close()
 
 
 def get_user(email, password):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                           echo=True)
     session = Session(bind=engine)
+    # запрос на получение записи о пользователе
     user = session.query(Users).filter_by(Email=email).first()
     session.close()
+    # сравнение введённого пароля с имеющимся в БД
     if not user or (password != user.Password):
         raise AccountNotFound
     return user
 
 
 def search(query):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                           echo=True)
     session = Session(bind=engine)
-    searched_games = session.query(Game).filter(Game.Game_name.like(f"%{query}%")).all()
+    # запрос на получение всех игр, удовлетворяющих поиску
+    searched_games = (session.query(Game)
+                      .filter(Game.Game_name.like(f"%{query}%"))
+                      .all())
     session.close()
     return searched_games
 
 
 def get_user_lists(name):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                          echo=True)
     session = Session(bind=engine)
-    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
-    user_lists = {'planned': session.query(List).filter_by(ID_user=id_user).filter_by(List_type='planned').all(),
-                  'completed': session.query(List).filter_by(ID_user=id_user).filter_by(List_type='completed').all(),
-                  'dropped': session.query(List).filter_by(ID_user=id_user).filter_by(List_type='dropped').all(),
-                  'postponed': session.query(List).filter_by(ID_user=id_user).filter_by(List_type='postponed').all()}
+    # получение ID пользователя по его имени
+    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user  # move this to separate func
+    # первая часть запроса на получение списков пользователя
+    q = (session.query(List, Game)
+         .join(Game, List.ID_game == Game.ID_game)
+         .filter(List.ID_user == id_user))
+    # вторая часть запроса на получение списков пользователя и их распределение по категории
+    user_lists = {'planned': q.filter(List.List_type == 'planned').all(),
+                  'completed': q.filter(List.List_type == 'completed').all(),
+                  'dropped': q.filter(List.List_type == 'dropped').all(),
+                  'postponed': q.filter(List.List_type == 'postponed').all()}
     return user_lists
 
 
 def count_user_lists(name):
-    engine = create_engine('mssql+pyodbc://DESKTOP-4NS1C62\SQLEXPRESS/KirokuDB?driver=ODBC+Driver+17+for+SQL+Server',
-                          echo=True)
     session = Session(bind=engine)
     id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
-    counts = dict(session.query(List.List_type, func.count(List.ID_user)).filter_by(ID_user=id_user).group_by(List.List_type).all())
+    # подсчёт количества различных списков у пользователя
+    counts = dict(session.query(List.List_type, func.count(List.ID_user))
+                  .filter_by(ID_user=id_user)
+                  .group_by(List.List_type)
+                  .all())
+    session.close()
+    # присваивание нуля категории при отсутствии игры в списке
     if len(counts) != 4:
         if 'planned' not in counts:
             counts['planned'] = 0
@@ -100,3 +115,14 @@ def count_user_lists(name):
         if 'postponed' not in counts:
             counts['postponed'] = 0
     return counts
+
+
+def get_user_photo(name):
+    session = Session(bind=engine)
+    # получение пути к фотографии пользователя
+    photo = session.query(Users).filter_by(Nickname=name).first().Photo
+    session.close()
+    # если пользователь не добавлял фотографию, то используется стандартная
+    if photo is None:
+        return '../static/user_images/default.png'
+    return photo
