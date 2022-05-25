@@ -117,7 +117,7 @@ def count_user_lists(name):
     return counts
 
 
-def get_user_photo(name):
+def get_user_photo(username):
     session = Session(bind=engine)
     # получение пути к фотографии пользователя
     photo = session.query(Users).filter_by(Nickname=name).first().Photo
@@ -126,3 +126,20 @@ def get_user_photo(name):
     if photo is None:
         return '../static/user_images/default.png'
     return photo
+
+
+def add_to_list(name, id_game, category):
+    session = Session(bind=engine)
+    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
+    user_list = List(ID_user=id_user, ID_game=id_game, List_type=category)
+    session.add(user_list)
+    session.commit()
+    session.close()
+
+
+def remove_from_list(name, id_game):
+    session = Session(bind=engine)
+    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
+    session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).delete()
+    session.commit()
+    session.close()
