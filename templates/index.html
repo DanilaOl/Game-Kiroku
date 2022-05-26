@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <a href={{ url_for('index') }} id="logo">Game-Kiroku</a>
+        <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
         <div class="search-form">
             <form method="GET">
                 <input type="search" name="search-content" placeholder="Поиск..." class="search">
@@ -27,16 +27,15 @@
                 <img src={{ user_photo }} alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
-                <a href={{ url_for('user_page', name=user) }}>Профиль</a>
-                <a href={{ url_for('logout') }}>Выход</a>
+                <a href={{ url_for( 'user_page', name=user) }}>Профиль</a>
+                <a href={{ url_for( 'logout') }}>Выход</a>
             </div>
         </div>
         {% else %}
         <div class="menu-dropbutton">
-            <a href={{ url_for('login') }}>Войти</a>
+            <a href={{ url_for( 'login') }}>Войти</a>
         </div>
         {% endif %}
-        <!-- .menu -->
     </header>
     <div class="main">
         {% if search %}
@@ -45,20 +44,20 @@
         <p class="title">Все игры</p>
         {% endif %}
         <div class="card-wrapper">
+            <!-- Цикл по всем играм из БД -->
             {% for game in games %}
             <div class="card">
-                <a href={{ url_for('game_page', id_game=game.ID_game) }} class="card-name">{{ game.Game_name }}</a>
+                <a href={{ url_for( 'game_page', id_game=game.ID_game) }} class="card-name">{{ game.Game_name }}</a>
                 <img src={{ game.Poster }} alt={{ game.Game_name }}>
             </div>
             {% endfor %}
         </div>
-        <!-- .wrapper -->
     </div>
-    <!-- .main -->
     <footer>
         <img src="../static/VIMO_Games_Logo_80x80.png" alt="VIMO_Games_NDU">
         <span>©VIMO NDU Москва, 2021</span>
     </footer>
     <script src="../static/script.js"></script>
 </body>
+
 </html>

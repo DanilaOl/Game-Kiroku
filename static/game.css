@@ -22,7 +22,7 @@
 }
 
 .addto {
-    width: 24em;
+    width: max-content;
 }
 
 .addto-dropbutton {
@@ -45,11 +45,15 @@
 }
 
 .addto-dropcontent {
-    display: none;
+    visibility: hidden;
     border: 2px solid #9A1010;
 }
 
-.addto-dropcontent div {
+.addto-dropcontent button {
+    width: 100%;
+    border: 0;
+    text-align: left;
+    display: block;
     cursor: pointer;
     font-size: 30px;
     padding: 5px 20px;
@@ -57,22 +61,58 @@
     background-color: #FAEEEE;
 }
 
-.addto-dropcontent div:hover {
+.addto-dropcontent button:hover {
     background-color: #9A1010;
     color: #FAEEEE;
 }
 
 .show {
-    display: block;
+    visibility: visible;
 }
 
 .show::after {
     transform: rotate(0);
 }
 
-.rating p {
+.rating p, .rating span {
     font-size: 40px;
     margin-bottom: 20px;
+}
+
+.rating-drop {
+    display: inline-block;
+    position: relative;
+    width: max-content;
+}
+
+.rating-drop span {
+    font-size: 30px;
+}
+
+.rating-dropbutton {
+    display: inline-block;
+    width: 100%;
+    padding: 0 .3em;
+    background-color: #9A1010;
+    color: #FAEEEE;
+}
+
+.rating-dropcontent {
+    position: absolute;
+    width: 100%;
+    border: 2px solid #9A1010;
+    visibility: hidden;
+}
+
+.rating-dropcontent button {
+    display: block;
+    position: relative;
+    padding: 0 .1em;
+    background-color: #FAEEEE;
+    border: 0;
+    width: 100%;
+    line-height: 1em;
+    font-size: 25px;
 }
 
 select {

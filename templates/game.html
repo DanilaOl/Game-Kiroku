@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <a href={{ url_for('index') }} id="logo">Game-Kiroku</a>
+        <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
         <div class="search-form">
             <form method="GET" action="/">
                 <input type="search" name="search-content" placeholder="Поиск..." class="search">
@@ -27,60 +27,70 @@
                 <img src={{ user_photo }} alt="Avatar">
             </div>
             <div id="menuContent" class="menu-dropcontent">
-                <a href={{ url_for('user_page', name=user) }}>Профиль</a>
-                <a href={{ url_for('logout') }}>Выход</a>
+                <a href={{ url_for( 'user_page', name=user) }}>Профиль</a>
+                <a href={{ url_for( 'logout') }}>Выход</a>
             </div>
         </div>
         {% else %}
         <div class="menu-dropbutton">
-            <a href={{ url_for('login') }}>Войти</a>
+            <a href={{ url_for( 'login') }}>Войти</a>
         </div>
         {% endif %}
         <!-- .menu -->
     </header>
     <div class="main">
         <div class="game-wrapper">
-            <img src={{ game_data['Game'].Poster }} alt={{ game_data['Game'].Game_name }}>
+            <img src={{ game_data[ 'Game'].Poster }} alt={{ game_data[ 'Game'].Game_name }}>
             <div class="game-info">
                 <p id="title">{{ game_data['Game'].Game_name }}</p>
                 <p>Дата выхода: {{ game_data['Game'].Release_date }}</p>
                 <p>Разработчик: {{ game_data['Developer'].Studio_name }}</p>
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
-                {% endif %}
-                {% if game_data['Game'].Description != None %}
+                {% endif %} {% if game_data['Game'].Description != None %}
                 <p>{{ game_data['Game'].Description }}</p>
-                {% endif %}
+                {% endif %} {% if user != None %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
-                        <span>Добавить в список </span>
+                        <span>{% if not list_type %}Добавить в список 
+                            {% elif list_type == 'planned' %}Запланировано
+                            {% elif list_type == 'completed' %}Пройдено
+                            {% elif list_type == 'dropped' %}Брошено
+                            {% elif list_type == 'postponed' %}Отложено
+                            {% endif %}</span>
                     </div>
-                    <div id="addtoContent" class="addto-dropcontent">
-                        <div>Запланировано</div>
-                        <div>Пройдено</div>
-                        <div>Брошено</div>
-                        <div>Отложено</div>
-                    </div>
+                    <form method="GET" action={{ url_for( 'list_handler', id_game=game_data[ 'Game'].ID_game) }} id="addtoContent" class="addto-dropcontent">
+                        {% if list_type != 'planned' %}<button name="type" value="planned">Запланировано</button>{% endif %}
+                        {% if list_type != 'completed' %}<button name="type" value="completed">Пройдено</button>{% endif %}
+                        {% if list_type != 'dropped' %}<button name="type" value="dropped">Брошено</button>{% endif %}
+                        {% if list_type != 'postponed' %}<button name="type" value="postponed">Отложено</button>{% endif %}
+                        {% if list_type %}<button name="type" value="delete">Удалить из списка</button>{% endif %}
+                    </form>
                 </div>
+                {% endif %}
             </div>
             <div class="rating">
                 <p>Рейтинг:{{ game_data['Game'].Rating }}/10</p>
-                <form action="">
-                    <p>Оценка:
-                        <select name="rating" id="rate">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option selected value="10">10</option>
-                        </select>
-                    </p>
-                </form>
+                {% if user != None and list_type != 'planned' and list_type != None %}
+                <span>Оценка:</span>
+                <div class="rating-drop">
+                    <div onclick="ratingToggle()" id="ratingButton" class="rating-dropbutton">
+                        <span>10</span>
+                    </div>
+                    <form method="GET" action="" id="ratingContent" class="rating-dropcontent">
+                        <button name="rating" value="1">1</button>
+                        <button name="rating" value="2">2</button>
+                        <button name="rating" value="3">3</button>
+                        <button name="rating" value="4">4</button>
+                        <button name="rating" value="5">5</button>
+                        <button name="rating" value="6">6</button>
+                        <button name="rating" value="7">7</button>
+                        <button name="rating" value="8">8</button>
+                        <button name="rating" value="9">9</button>
+                        <button name="rating" value="10">10</button>
+                    </form>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
