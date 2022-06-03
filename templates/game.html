@@ -47,9 +47,11 @@
                 <p>Разработчик: {{ game_data['Developer'].Studio_name }}</p>
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
-                {% endif %} {% if game_data['Game'].Description != None %}
+                {% endif %} 
+                {% if game_data['Game'].Description != None %}
                 <p>{{ game_data['Game'].Description }}</p>
-                {% endif %} {% if user != None %}
+                {% endif %} 
+                {% if user != None %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
                         <span>{% if not list_type %}Добавить в список 
@@ -70,14 +72,17 @@
                 {% endif %}
             </div>
             <div class="rating">
-                <p>Рейтинг:{{ game_data['Game'].Rating }}/10</p>
+                <p>Рейтинг:{{ game_data['Game'].Rating|round(2) }}/10</p>
                 {% if user != None and list_type != 'planned' and list_type != None %}
                 <span>Оценка:</span>
                 <div class="rating-drop">
                     <div onclick="ratingToggle()" id="ratingButton" class="rating-dropbutton">
-                        <span>10</span>
+                        <span>{% if not user_rating %}-
+                            {% else %}
+                            {{ user_rating|int }}
+                            {% endif %}</span>
                     </div>
-                    <form method="GET" action="" id="ratingContent" class="rating-dropcontent">
+                    <form method="GET" action={{ url_for('rating_handler', id_game=game_data[ 'Game'].ID_game) }} id="ratingContent" class="rating-dropcontent">
                         <button name="rating" value="1">1</button>
                         <button name="rating" value="2">2</button>
                         <button name="rating" value="3">3</button>

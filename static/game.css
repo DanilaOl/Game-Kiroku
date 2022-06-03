@@ -22,15 +22,16 @@
 }
 
 .addto {
-    width: max-content;
+    width: 24em;
 }
 
 .addto-dropbutton {
     background-color: #9A1010;
     color: #FAEEEE;
     font-size: 30px;
-    padding: 10px 20px;
+    padding: .3em .5em;
     cursor: pointer;
+    position: relative;
 }
 
 .addto-dropbutton::after {
@@ -39,7 +40,9 @@
     display: inline-flex;
     border-left: 10px solid #FAEEEE;
     border-right: none;
-    vertical-align: middle;
+    position: absolute;
+    right: 1em;
+    top: 35%;
     transform: rotate(90deg);
     transition-duration: 0.1s;
 }
@@ -56,22 +59,13 @@
     display: block;
     cursor: pointer;
     font-size: 30px;
-    padding: 5px 20px;
-    transition-duration: 0.1s;
+    padding: .3em .4em;
     background-color: #FAEEEE;
 }
 
 .addto-dropcontent button:hover {
     background-color: #9A1010;
     color: #FAEEEE;
-}
-
-.show {
-    visibility: visible;
-}
-
-.show::after {
-    transform: rotate(0);
 }
 
 .rating p, .rating span {
@@ -91,28 +85,55 @@
 
 .rating-dropbutton {
     display: inline-block;
+    cursor: pointer;
     width: 100%;
-    padding: 0 .3em;
+    padding: .1em .6em .1em .5em;
     background-color: #9A1010;
     color: #FAEEEE;
+}
+
+.rating-dropbutton::after {
+    content: "";
+    border: 8px solid transparent;
+    display: inline-flex;
+    border-left: 8px solid #FAEEEE;
+    border-right: none;
+    vertical-align: 40%;
+    transform: rotate(90deg);
+    transition-duration: 0.1s;
 }
 
 .rating-dropcontent {
     position: absolute;
     width: 100%;
     border: 2px solid #9A1010;
+    border-top: 0;
     visibility: hidden;
 }
 
 .rating-dropcontent button {
     display: block;
     position: relative;
-    padding: 0 .1em;
+    cursor: pointer;
+    padding: .1em 0;
     background-color: #FAEEEE;
     border: 0;
     width: 100%;
     line-height: 1em;
     font-size: 25px;
+}
+
+.rating-dropcontent button:hover {
+    background-color: #9A1010;
+    color: #FAEEEE;
+}
+
+.show {
+    visibility: visible;
+}
+
+.show::after {
+    transform: rotate(0);
 }
 
 select {

@@ -135,6 +135,7 @@ def update_list_type(name, id_game, list_type):
      .update({'List_type': list_type}, synchronize_session="fetch"))
     session.commit()
     session.close()
+    update_game_rating(id_game)
 
 
 def update_list_rating(name, id_game, rating):
@@ -145,12 +146,43 @@ def update_list_rating(name, id_game, rating):
      .update({'Rated': rating}, synchronize_session="fetch"))
     session.commit()
     session.close()
+    update_game_rating(id_game)
+
+
+def update_game_rating(id_game):
+    session = Session(bind=engine)
+    new_rating = (session.query(func.avg(List.Rated).label('avg_rating'))
+                  .filter(List.ID_game == id_game)
+                  .first()
+                  .avg_rating)
+    (session.query(Game)
+     .filter(Game.ID_game == id_game)
+     .update({'Rating': new_rating}, synchronize_session="fetch"))
+    session.commit()
+    session.close()
 
 
 def get_user_list_type(name, id_game):
-    session = Session(bind=engine)
-    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
-    if session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).first():
-        return session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).first().List_type
+    result = None
+    if name is not None:
+        session = Session(bind=engine)
+        id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
+        result = session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).first()
+        session.close()
+    if result:
+        return result.List_type
+    else:
+        return None
+
+
+def get_user_rating(name, id_game):
+    result = None
+    if name is not None:
+        session = Session(bind=engine)
+        id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
+        result = session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).first()
+        session.close()
+    if result:
+        return result.Rated
     else:
         return None

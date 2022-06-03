@@ -3,8 +3,8 @@ function menuToggle() {
 }
 
 function addToToggle() {
-    document.getElementById("addtoContent").classList.toggle("show");
     document.getElementById("addtoButton").classList.toggle("show");
+    document.getElementById("addtoContent").classList.toggle("show");
 }
 
 function ratingToggle() {

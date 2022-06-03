@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 from models import (get_games, get_game_info, add_user, get_user, search, get_user_lists, count_user_lists,
-                    get_user_photo, add_to_list, delete_list, update_list_type, update_list_rating, get_user_list_type)
+                    get_user_photo, add_to_list, delete_list, update_list_type, update_list_rating, get_user_list_type,
+                    get_user_rating)
 # TODO add filters and sorting
 # TODO add contact info to footer
 # TODO replace js menu with css:hover menu
@@ -59,8 +60,9 @@ def create_app():
         check_session(session)
         game_data = get_game_info(id_game)
         list_type = get_user_list_type(session['account'], id_game)
+        user_rating = get_user_rating(session['account'], id_game)
         return render_template('game.html', game_data=game_data, user=session['account'],
-                               user_photo=session['user_photo'], list_type=list_type)
+                               user_photo=session['user_photo'], list_type=list_type, user_rating=user_rating)
 
     @app.route('/game/<id_game>/list_update')
     def list_handler(id_game):
@@ -72,6 +74,12 @@ def create_app():
                 update_list_type(session['account'], id_game, list_type)
             else:
                 add_to_list(session['account'], id_game, list_type)
+        return redirect(url_for('game_page', id_game=id_game))
+
+    @app.route('/game/<id_game>/rating_update')
+    def rating_handler(id_game):
+        rating = request.args.get('rating')
+        update_list_rating(session['account'], id_game, rating)
         return redirect(url_for('game_page', id_game=id_game))
 
     @app.route('/logout')
