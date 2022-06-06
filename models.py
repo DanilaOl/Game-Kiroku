@@ -24,6 +24,18 @@ class AccountNotFound(Exception):
     """
 
 
+class AccountAlreadyExists(Exception):
+    """
+    Account is already in database
+    """
+
+
+class NicknameAlreadyExists(Exception):
+    """
+    Nickname is already in database
+    """
+
+
 def get_games():
     session = Session(bind=engine)
     all_games = session.query(Game).all()
@@ -45,9 +57,12 @@ def get_game_info(id_game):
 def add_user(name, email, password):
     session = Session(bind=engine)
     user = Users(Nickname=name, Email=email, Password=password)
-    session.add(user)
-    session.commit()
-    session.close()
+    try:
+        session.add(user)
+        session.commit()
+        session.close()
+    except IntegrityError:
+        raise AccountAlreadyExists
 
 
 def get_user(email, password):

@@ -47,10 +47,7 @@
                 <p>Разработчик: {{ game_data['Developer'].Studio_name }}</p>
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
-                {% endif %} 
-                {% if game_data['Game'].Description != None %}
-                <p>{{ game_data['Game'].Description }}</p>
-                {% endif %} 
+                {% endif %}
                 {% if user != None %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
@@ -82,7 +79,7 @@
                             {{ user_rating|int }}
                             {% endif %}</span>
                     </div>
-                    <form method="GET" action={{ url_for('rating_handler', id_game=game_data[ 'Game'].ID_game) }} id="ratingContent" class="rating-dropcontent">
+                    <form method="GET" action={{ url_for('rating_handler', id_game=game_data['Game'].ID_game) }} id="ratingContent" class="rating-dropcontent">
                         <button name="rating" value="1">1</button>
                         <button name="rating" value="2">2</button>
                         <button name="rating" value="3">3</button>
@@ -98,6 +95,9 @@
                 {% endif %}
             </div>
         </div>
+        {% if game_data['Game'].Description != None %}
+        <p class="description">{{ game_data['Game'].Description }}</p>
+        {% endif %} 
     </div>
     <!-- .main -->
     <footer>

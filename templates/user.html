@@ -61,6 +61,10 @@
                     {% endif %}
                 </p>
                 <table>
+                    <tr class="table-head">
+                        <td>Название игры</td>
+                        <td>Оценка</td>
+                    </tr>
                     {% for list, game in lists %}
                     <tr>
                         <td class=table-game-name><a href={{ url_for('game_page', id_game=list.ID_game) }}>{{ game.Game_name }}</a></td>

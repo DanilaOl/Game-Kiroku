@@ -1,3 +1,4 @@
+from models import AccountNotFound, AccountAlreadyExists, NicknameAlreadyExists
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 from models import (get_games, get_game_info, add_user, get_user, search, get_user_lists, count_user_lists,
                     get_user_photo, add_to_list, delete_list, update_list_type, update_list_rating, get_user_list_type,
@@ -31,7 +32,10 @@ def create_app():
             password_check = request.form['password_check']
             if password != password_check:
                 return render_template('register.html', error='pass_not_match')
-            add_user(name, email, password)
+            try:
+                add_user(name, email, password)
+            except AccountAlreadyExists:
+                return render_template('register.html', error='account_already_exists')
             return redirect('/login')
         return render_template('register.html')
 
@@ -40,14 +44,16 @@ def create_app():
         if request.method == 'POST':
             email = request.form['email']
             password = request.form['password']
-            user = get_user(email, password)
+            try:
+                user = get_user(email, password)
+            except AccountNotFound:
+                return render_template('login.html', account_not_found=True)
             session['account'] = user.Nickname
             return redirect('/users/' + session['account'])
         return render_template('login.html')
 
     @app.route('/users/<name>')
     def user_page(name):
-        # TODO add head to the lists' tables
         check_session(session)
         profile_photo = get_user_photo(name)
         user_lists = get_user_lists(name)
@@ -88,7 +94,7 @@ def create_app():
         return redirect('/')
 
     def check_session(_session):
-        if 'account' not in session or session['account'] is None:
+        if 'account' not in _session or _session['account'] is None:
             _session['account'] = None
             _session['user_photo'] = None
         else:

@@ -17,6 +17,9 @@
         <!-- .menu -->
     </header>
     <div class="main">
+        {% if account_not_found %}
+        <p class="error">Введено неверное имя пользователя и/или пароль</p>
+        {% endif %}
         <form method="POST">
             <label>E-mail</label>
             <input type="email" maxlength="30" name="email" placeholder="name@mail.com" required><br>

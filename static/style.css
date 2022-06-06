@@ -38,6 +38,7 @@ header * {
     text-decoration: none;
     font-size: 40px;
     margin: 15px 0 15px 60px;
+    white-space: nowrap;
 }
 
 .search-form {

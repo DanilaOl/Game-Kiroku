@@ -1,20 +1,23 @@
 .game-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2em;
 }
 
 .game-wrapper img {
     height: 600px;
     width: 400px;
+    border-radius: 5px;
 }
 
 .game-info {
-    margin: 0 30px;
+    margin: 0 3em;
+    flex-grow: 1;
 }
 
 .game-info p {
     font-size: 30px;
-    margin-bottom: 30px;
+    margin-bottom: .8em;
 }
 
 #title {
@@ -48,8 +51,12 @@
 }
 
 .addto-dropcontent {
-    visibility: hidden;
+    /* visibility: hidden; */
+    display: none;
+    position: absolute;
+    width: 24em;
     border: 2px solid #9A1010;
+    z-index: 2;
 }
 
 .addto-dropcontent button {
@@ -70,7 +77,7 @@
 
 .rating p, .rating span {
     font-size: 40px;
-    margin-bottom: 20px;
+    margin-bottom: .5em;
 }
 
 .rating-drop {
@@ -108,7 +115,7 @@
     width: 100%;
     border: 2px solid #9A1010;
     border-top: 0;
-    visibility: hidden;
+    display: none;
 }
 
 .rating-dropcontent button {
@@ -128,21 +135,14 @@
     color: #FAEEEE;
 }
 
+.description {
+    font-size: 25px;
+}
+
 .show {
-    visibility: visible;
+    display: block;
 }
 
 .show::after {
     transform: rotate(0);
-}
-
-select {
-    font-size: 25px;
-    /* padding: 7px; */
-    vertical-align: middle;
-    color: #9A1010;
-}
-
-select option {
-    font-size: 16px;
 }

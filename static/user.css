@@ -26,8 +26,13 @@
 }
 
 .list {
+    min-width: 30em;
     width: 50%;
-    margin-bottom: 60px;
+    margin-bottom: 4em;
+    margin-right: 1em;
+    flex-grow: 1;
+    flex-basis: 45%;
+    
 }
 
 .list p {
@@ -36,7 +41,7 @@
 }
 
 .list table {
-    width: 90%;
+    width: 100%;
     border: 1px solid #9A1010;
     border-collapse: collapse;
     background-color: #FAEEEE;
@@ -48,7 +53,7 @@
 
 .list td {
     border: 1px solid #9A1010;
-    padding: 5px 20px;
+    padding: .3em 1em;
     font-size: 16px;
 }
 
@@ -59,6 +64,13 @@
 
 .list a:hover {
     text-decoration: underline;
+}
+
+.table-head {
+    text-align: center;
+    color: #FAEEEE;
+    background-color:#9A1010;
+    border: 1px solid #FAEEEE;
 }
 
 .table-game-name {
