@@ -25,7 +25,9 @@
 }
 
 .addto {
-    width: 24em;
+    /* width: 23em; */
+    width: 100%;
+    margin-bottom: 1em;
 }
 
 .addto-dropbutton {
@@ -44,17 +46,19 @@
     border-left: 10px solid #FAEEEE;
     border-right: none;
     position: absolute;
-    right: 1em;
+    right: .5em;
     top: 35%;
     transform: rotate(90deg);
     transition-duration: 0.1s;
 }
 
+#list-type {
+    font-size: 30px;
+    padding-right: 1em;
+}
+
 .addto-dropcontent {
-    /* visibility: hidden; */
     display: none;
-    position: absolute;
-    width: 24em;
     border: 2px solid #9A1010;
     z-index: 2;
 }
@@ -138,6 +142,31 @@
 .description {
     font-size: 25px;
 }
+
+.trailer-outwrapper {
+    width: 85%;
+}
+
+.trailer-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.trailer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    outline-width: 0;
+}
+
+/* .trailer {
+    w70%
+} */
 
 .show {
     display: block;

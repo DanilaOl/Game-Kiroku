@@ -48,10 +48,22 @@
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
                 {% endif %}
+                
+                {% if game_data['Game'].Trailer %}
+                <div class="trailer-outwrapper">
+                    <div class="trailer-wrapper">
+                        <iframe class="trailer" src={{ game_data['Game'].Trailer }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+            <div class="rating">
+                <p>Рейтинг:{{ game_data['Game'].Rating|round(2) }}/10</p>
                 {% if user != None %}
                 <div class="addto">
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
-                        <span>{% if not list_type %}Добавить в список 
+                        <span id="list-type">{% if not list_type %}Добавить в 
                             {% elif list_type == 'planned' %}Запланировано
                             {% elif list_type == 'playing' %}Играю
                             {% elif list_type == 'completed' %}Пройдено
@@ -67,10 +79,6 @@
                     </form>
                 </div>
                 {% endif %}
-                
-            </div>
-            <div class="rating">
-                <p>Рейтинг:{{ game_data['Game'].Rating|round(2) }}/10</p>
                 {% if user != None and list_type != 'planned' and list_type != None %}
                 <span>Оценка:</span>
                 <div class="rating-drop">
@@ -94,12 +102,15 @@
                     </form>
                 </div>
                 {% endif %}
+                
             </div>
-            
         </div>
         {% if game_data['Game'].Description != None %}
         <p class="description">{{ game_data['Game'].Description }}</p>
         {% endif %}
+        
+        
+        
          
     </div>
     <!-- .main -->

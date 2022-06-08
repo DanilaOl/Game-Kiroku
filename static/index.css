@@ -15,6 +15,7 @@
 .card img {
     width: 200px;
     height: 300px;
+    border-radius: 5px;
 }
 
 .card-name {
@@ -32,6 +33,7 @@
     font-size: 20px;
     color: #faeeee;
     text-decoration: none;
+    border-radius: 5px;
 }
 
 .card:hover .card-name {
