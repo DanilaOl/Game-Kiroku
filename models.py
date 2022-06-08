@@ -85,13 +85,13 @@ def search(query):
 
 def get_user_lists(name):
     session = Session(bind=engine)
-    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user  # move this to separate func
+    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
     q = (session.query(List, Game)
          .join(Game, List.ID_game == Game.ID_game)
          .filter(List.ID_user == id_user))
     user_lists = {'planned': q.filter(List.List_type == 'planned').all(),
+                  'playing': q.filter(List.List_type == 'playing').all(),
                   'completed': q.filter(List.List_type == 'completed').all(),
-                  'dropped': q.filter(List.List_type == 'dropped').all(),
                   'postponed': q.filter(List.List_type == 'postponed').all()}
     return user_lists
 
@@ -107,10 +107,10 @@ def count_user_lists(name):
     if len(counts) != 4:
         if 'planned' not in counts:
             counts['planned'] = 0
+        if 'playing' not in counts:
+            counts['playing'] = 0
         if 'completed' not in counts:
             counts['completed'] = 0
-        if 'dropped' not in counts:
-            counts['dropped'] = 0
         if 'postponed' not in counts:
             counts['postponed'] = 0
     return counts
@@ -140,6 +140,7 @@ def delete_list(name, id_game):
     session.query(List).filter(List.ID_user == id_user, List.ID_game == id_game).delete()
     session.commit()
     session.close()
+    update_game_rating(id_game)
 
 
 def update_list_type(name, id_game, list_type):
@@ -170,6 +171,8 @@ def update_game_rating(id_game):
                   .filter(List.ID_game == id_game)
                   .first()
                   .avg_rating)
+    if new_rating is None:
+        new_rating = 0
     (session.query(Game)
      .filter(Game.ID_game == id_game)
      .update({'Rating': new_rating}, synchronize_session="fetch"))

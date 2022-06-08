@@ -43,7 +43,7 @@
             <img src={{ game_data[ 'Game'].Poster }} alt={{ game_data[ 'Game'].Game_name }}>
             <div class="game-info">
                 <p id="title">{{ game_data['Game'].Game_name }}</p>
-                <p>Дата выхода: {{ game_data['Game'].Release_date }}</p>
+                <p>Дата выхода: {{ game_data['Game'].Release_date.strftime('%d.%m.%Y') }}</p>
                 <p>Разработчик: {{ game_data['Developer'].Studio_name }}</p>
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
@@ -53,20 +53,21 @@
                     <div onclick="addToToggle()" id="addtoButton" class="addto-dropbutton">
                         <span>{% if not list_type %}Добавить в список 
                             {% elif list_type == 'planned' %}Запланировано
+                            {% elif list_type == 'playing' %}Играю
                             {% elif list_type == 'completed' %}Пройдено
-                            {% elif list_type == 'dropped' %}Брошено
                             {% elif list_type == 'postponed' %}Отложено
                             {% endif %}</span>
                     </div>
                     <form method="GET" action={{ url_for( 'list_handler', id_game=game_data[ 'Game'].ID_game) }} id="addtoContent" class="addto-dropcontent">
                         {% if list_type != 'planned' %}<button name="type" value="planned">Запланировано</button>{% endif %}
                         {% if list_type != 'completed' %}<button name="type" value="completed">Пройдено</button>{% endif %}
-                        {% if list_type != 'dropped' %}<button name="type" value="dropped">Брошено</button>{% endif %}
+                        {% if list_type != 'playing' %}<button name="type" value="playing">Играю</button>{% endif %}
                         {% if list_type != 'postponed' %}<button name="type" value="postponed">Отложено</button>{% endif %}
                         {% if list_type %}<button name="type" value="delete">Удалить из списка</button>{% endif %}
                     </form>
                 </div>
                 {% endif %}
+                
             </div>
             <div class="rating">
                 <p>Рейтинг:{{ game_data['Game'].Rating|round(2) }}/10</p>
@@ -94,10 +95,12 @@
                 </div>
                 {% endif %}
             </div>
+            
         </div>
         {% if game_data['Game'].Description != None %}
         <p class="description">{{ game_data['Game'].Description }}</p>
-        {% endif %} 
+        {% endif %}
+         
     </div>
     <!-- .main -->
     <footer>

@@ -44,10 +44,9 @@
             <img src={{ profile_photo }} alt="Avatar">
             <div class="user-info">
                 <p>Запланировано: {{ list_counts.planned }}</p>
+                <p>Играю: {{ list_counts.playing }}</p>
                 <p>Пройдено: {{ list_counts.completed }}</p>
-                <p>Брошено: {{ list_counts.dropped }}</p>
                 <p>Отложено: {{ list_counts.postponed }}</p>
-                <p>[Status_example]</p>
             </div>
         </div>
         <div class="list-wrapper">
@@ -55,8 +54,8 @@
             {% if lists %}
             <div class="list">
                 <p>{% if key == 'planned' %}Запланировано
+                    {% elif key == 'playing' %}Играю
                     {% elif key == 'completed' %}Пройдено
-                    {% elif key == 'dropped' %}Брошено
                     {% elif key == 'postponed' %}Отложено
                     {% endif %}
                 </p>
