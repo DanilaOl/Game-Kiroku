@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='../static/style.css' , rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/63cd46c35b.js" crossorigin="anonymous"></script>
+    <title>Страница не найдена - Game-Kiroku</title>
+</head>
+<body>
+    <header>
+        <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
+        <div class="search-form">
+            <form method="GET">
+                <input type="search" name="search-content" placeholder="Поиск..." class="search" required>
+                <input type="submit" value="&#xf002" class="search fa-solid fa-magnifying-glass">
+            </form>
+        </div>
+        {% if user != None %}
+        <div class="menu">
+            <div onclick="menuToggle()" class="menu-dropbutton">
+                <span>{{ user }}</span>
+                <img src={{ user_photo }} alt="Avatar">
+            </div>
+            <div id="menuContent" class="menu-dropcontent">
+                <a href={{ url_for( 'user_page', name=user) }}>Профиль</a>
+                <a href={{ url_for( 'logout') }}>Выход</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="menu-dropbutton">
+            <a href={{ url_for( 'login') }}>Войти</a>
+        </div>
+        {% endif %}
+    </header>
+    <div class="main">
+        <p class="not-found">Страница не найдена</p>
+    </div>
+    <footer>
+        <img src="../static/VIMO_Games_Logo_80x80.png" alt="VIMO_Games_NDU">
+        <span>©VIMO NDU Москва, 2021</span>
+    </footer>
+    <script src="../static/script.js"></script>
+</body>
+</html>
