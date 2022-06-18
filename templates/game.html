@@ -16,7 +16,7 @@
         <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
         <div class="search-form">
             <form method="GET" action="/">
-                <input type="search" name="search-content" placeholder="Поиск..." class="search">
+                <input type="search" name="search-content" placeholder="Поиск..." class="search" required>
                 <input type="submit" value="&#xf002" class="search fa-solid fa-magnifying-glass">
             </form>
         </div>
@@ -48,7 +48,10 @@
                 {% if game_data['Publisher'].Publisher_name != NULL %}
                 <p>Издатель: {{ game_data['Publisher'].Publisher_name }}</p>
                 {% endif %}
-                
+                <p>Жанры: 
+                    {% for genre in genres %}
+                    {{ genre }}
+                    {% endfor %}</p>
                 {% if game_data['Game'].Trailer %}
                 <div class="trailer-outwrapper">
                     <div class="trailer-wrapper">
@@ -102,16 +105,27 @@
                     </form>
                 </div>
                 {% endif %}
-                
             </div>
         </div>
         {% if game_data['Game'].Description != None %}
         <p class="description">{{ game_data['Game'].Description }}</p>
         {% endif %}
+        <p class="comment-title">Отзывы</p>
+        <div class="comment-wrapper">
+            {% for comment in comments %}
+            <div class="comment">
+                <a href={{ url_for('user_page', name=comment['Nickname']) }} class="comment-name">{{ comment['Nickname'] }}</a>
+                <p class="comment-text">{{ comment['Comment'].Comment_text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% if user != None %}
+        <form method="POST" class="comment-input">
+            <textarea name="comment-text" placeholder="Ваш отзыв" maxlength="500" required></textarea>
+            <input class="send-comment" type="submit" value="Отправить">
+        </form>   
+        {% endif %}
         
-        
-        
-         
     </div>
     <!-- .main -->
     <footer>

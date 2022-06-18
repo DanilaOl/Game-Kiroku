@@ -16,7 +16,7 @@
         <a href={{ url_for( 'index') }} id="logo">Game-Kiroku</a>
         <div class="search-form">
             <form method="GET">
-                <input type="search" name="search-content" placeholder="Поиск..." class="search">
+                <input type="search" name="search-content" placeholder="Поиск..." class="search" required>
                 <input type="submit" value="&#xf002" class="search fa-solid fa-magnifying-glass">
             </form>
         </div>
@@ -38,11 +38,44 @@
         {% endif %}
     </header>
     <div class="main">
-        {% if search %}
-        <p class="title">Результаты поиска:</p>
-        {% else %}
-        <p class="title">Все игры</p>
-        {% endif %}
+        <div class="titles-wrapper">
+            {% if search %}
+            <p class="title">Результаты поиска:</p>
+            {% else %}
+            <p class="title">Все игры</p>
+            {% endif %}
+            <div class="filter">
+                <p onclick="filterToggle()" class="filter-dropbutton fa-solid fa-sliders"></p>
+                <div class="filter-dropcontent" id="filterContent">
+                    <form action="">
+                        <p class="filter-title">Фильтр</p>
+                        <p>По годам:</p>
+                        <span>С: </span><input type="text" name="year-from"><span> По: </span><input type="text" name="year-to"><br>
+                        <div class="select-wrapper">
+                            <span>По жанрам: </span>
+                            <select name="genre">
+                                <option value=""></option>
+                                {% for genre in genres %}
+                                <option value={{ genre.ID_genre }}>{{ genre.Genre_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <span>По студиям:</span>
+                            <select name="developer">
+                                <option value=""></option>
+                                {% for dev in developers %}
+                                <option value={{ dev.ID_studio }}>{{ dev.Studio_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <input type="submit" value="Применить">
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        
         <div class="card-wrapper">
             <!-- Цикл по всем играм из БД -->
             {% for game in games %}

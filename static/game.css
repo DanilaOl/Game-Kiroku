@@ -2,16 +2,18 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 2em;
+    flex-wrap: wrap;
 }
 
 .game-wrapper img {
     height: 600px;
     width: 400px;
     border-radius: 5px;
+    margin: 0 auto;
 }
 
 .game-info {
-    margin: 0 3em;
+    padding: 0 3em;
     flex-grow: 1;
 }
 
@@ -79,6 +81,10 @@
     color: #FAEEEE;
 }
 
+.rating {
+    /* padding: 0 1em; */
+}
+
 .rating p, .rating span {
     font-size: 40px;
     margin-bottom: .5em;
@@ -139,10 +145,6 @@
     color: #FAEEEE;
 }
 
-.description {
-    font-size: 25px;
-}
-
 .trailer-outwrapper {
     width: 85%;
 }
@@ -164,9 +166,63 @@
     outline-width: 0;
 }
 
-/* .trailer {
-    w70%
-} */
+.description {
+    font-size: 25px;
+}
+
+.comment-title {
+    font-size: 35px;
+    margin: .3em 0;
+}
+
+.comment {
+    margin-bottom: .5em;
+    border-bottom: 1px dashed #9A1010;
+    padding-bottom: .2em;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment-name {
+    text-decoration: none;
+    color: #FAEEEE;
+    background-color: #9A1010;
+    padding: 0 .3em;
+    font-size: 20px;
+}
+
+.comment-name:hover {
+    text-decoration: underline;
+}
+
+.comment-text {
+    font-size: 18px;
+    text-indent: 1em;
+    margin-top: .2em;
+}
+
+textarea {
+    width: 100%;
+    height: 5em;
+    display: block;
+    font-size: 18px;
+    text-indent: 1em;
+    resize: none;
+    border: 1px solid #9A1010;
+}
+
+.send-comment {
+    padding: .1em 1em;
+    background-color: #9A1010;
+    color: #FAEEEE;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 20px;
+    margin: .5em auto 0;
+    display: block;
+}
 
 .show {
     display: block;

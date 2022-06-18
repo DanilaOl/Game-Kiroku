@@ -2,10 +2,8 @@ from models import AccountNotFound, AccountAlreadyExists, NicknameAlreadyExists
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 from models import (get_games, get_game_info, add_user, get_user, search, get_user_lists, count_user_lists,
                     get_user_photo, add_to_list, delete_list, update_list_type, update_list_rating, get_user_list_type,
-                    get_user_rating)
-# TODO add filters and sorting
-# TODO add contact info to footer
-# TODO replace js menu with css:hover menu
+                    get_user_rating, get_game_genres, get_all_genres, get_all_developers, filter_games,
+                    get_game_comments, add_comment)
 
 
 def create_app():
@@ -15,13 +13,23 @@ def create_app():
     @app.route('/', methods=['GET', 'POST'])
     def index():
         search_content = request.args.get('search-content')
+        filter_year_from = request.args.get('year-from')
+        filter_year_to = request.args.get('year-to')
+        filter_genre = request.args.get('genre')
+        filter_developer = request.args.get('developer')
         check_session(session)
         if search_content and search_content != '':
             searched_games = search(search_content)
             return render_template('index.html', games=searched_games, search=True, user=session['account'],
                                    user_photo=session['user_photo'])
-        all_games = get_games()
-        return render_template('index.html', games=all_games, user=session['account'], user_photo=session['user_photo'])
+        if filter_year_from or filter_year_to or filter_genre or filter_developer:
+            all_games = filter_games(filter_year_from, filter_year_to, filter_genre, filter_developer)
+        else:
+            all_games = get_games()
+        all_genres = get_all_genres()
+        all_developers = get_all_developers()
+        return render_template('index.html', games=all_games, user=session['account'], user_photo=session['user_photo'],
+                               genres=all_genres, developers=all_developers)
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
@@ -61,14 +69,21 @@ def create_app():
         return render_template('user.html', name=name, profile_photo=profile_photo, grouped_lists=user_lists,
                                list_counts=list_counts, user=session['account'], user_photo=session['user_photo'])
 
-    @app.route('/game/<id_game>')
+    @app.route('/game/<id_game>', methods=['GET', 'POST'])
     def game_page(id_game):
+        if request.method == 'POST':
+            comment_text = request.form['comment-text']
+            add_comment(session['account'], id_game, comment_text)
+            return redirect(url_for('game_page', id_game=id_game))
         check_session(session)
         game_data = get_game_info(id_game)
         list_type = get_user_list_type(session['account'], id_game)
         user_rating = get_user_rating(session['account'], id_game)
+        genres = get_game_genres(id_game)
+        comments = get_game_comments(id_game)
         return render_template('game.html', game_data=game_data, user=session['account'],
-                               user_photo=session['user_photo'], list_type=list_type, user_rating=user_rating)
+                               user_photo=session['user_photo'], list_type=list_type, user_rating=user_rating,
+                               genres=genres, comments=comments)
 
     @app.route('/game/<id_game>/list_update')
     def list_handler(id_game):
@@ -92,6 +107,10 @@ def create_app():
     def logout():
         session.pop('account', None)
         return redirect('/')
+
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return render_template('not_found.html', user=session['account'], user_photo=session['user_photo']), 404
 
     def check_session(_session):
         if 'account' not in _session or _session['account'] is None:

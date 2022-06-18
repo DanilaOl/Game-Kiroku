@@ -1,3 +1,88 @@
+.main {
+    width: 73.2%;
+}
+
+.titles-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter {
+    position: relative;
+}
+
+.filter-dropbutton {
+    font-size: 40px;
+    height: 50px;
+    cursor: pointer;
+    padding: 5px;
+    transition-duration: .2s;
+    border-radius: 5px;
+}
+
+.filter-dropbutton:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.filter-dropcontent {
+    font-size: 20px;
+    width: max-content;
+    background-color: #FFFFFF;
+    z-index: 2;
+    border: 2px solid #9A1010;
+    position: absolute;
+    right: 0;
+    padding: .5em;
+    display: none;
+}
+
+.filter-dropcontent select {
+    font-size: 17px;
+    vertical-align: middle;
+}
+
+.filter-dropcontent option {
+    line-height: 0.7;
+    -webkit-appearance: menulist-button;
+    height: 25px;
+}
+
+.filter-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.filter-dropcontent input[type="text"] {
+    width: 4em;
+    font-size: 17px;
+}
+
+.select-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.select-wrapper select {
+    flex-grow: 0.8;
+}
+
+.filter-dropcontent input[type="submit"] {
+    padding: .1em 1em;
+    background-color: #9A1010;
+    color: #FAEEEE;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 20px;
+    margin: .5em auto 0;
+    display: block;
+}
+
+.show {
+    display: block;
+}
+
 .card-wrapper {
     margin: 0 -7px 52px -8px;
     display: flex;

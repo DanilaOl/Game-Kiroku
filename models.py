@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine, func
@@ -13,9 +14,11 @@ Base.prepare(engine, reflect=True)
 Developer = Base.classes.Developer
 Game = Base.classes.Game
 Genre = Base.classes.Genre
+Genre_of_game = Base.classes.Genre_of_game
 List = Base.classes.List
 Publisher = Base.classes.Publisher
 Users = Base.classes.Users
+Comment = Base.classes.Comment
 
 
 class AccountNotFound(Exception):
@@ -62,6 +65,7 @@ def add_user(name, email, password):
         session.commit()
         session.close()
     except IntegrityError:
+        session.close()
         raise AccountAlreadyExists
 
 
@@ -204,3 +208,61 @@ def get_user_rating(name, id_game):
         return result.Rated
     else:
         return None
+
+
+def get_all_developers():
+    session = Session(bind=engine)
+    all_developers = session.query(Developer).all()
+    session.close()
+    return all_developers
+
+
+def get_all_genres():
+    session = Session(bind=engine)
+    all_genres = session.query(Genre).all()
+    session.close()
+    return all_genres
+
+
+def get_game_genres(id_game):
+    session = Session(bind=engine)
+    _genres = (session.query(Genre_of_game, Genre)
+               .join(Genre).filter(Genre_of_game.ID_game == id_game)
+               .all())
+    session.close()
+    genres = []
+    for g in _genres:
+        genres.append(g[Genre].Genre_name)
+    return genres
+
+
+def filter_games(year_from, year_to, genre, developer):
+    session = Session(bind=engine)
+    games = session.query(Game).join(Genre_of_game)
+    if year_from != '':
+        year_from = datetime.datetime.strptime(year_from, '%Y').date()
+        games = games.filter(Game.Release_date >= year_from)
+    if year_to != '':
+        year_to = datetime.datetime.strptime(str(int(year_to) + 1), '%Y').date()
+        games = games.filter(Game.Release_date < year_to)
+    if genre != '':
+        games = games.filter(Genre_of_game.ID_genre == genre)
+    if developer != '':
+        games = games.filter(Game.ID_studio == developer)
+    games = games.all()
+    return games
+
+
+def get_game_comments(id_game):
+    session = Session(bind=engine)
+    comments = session.query(Comment, Users.Nickname).join(Users).filter(Comment.ID_game == id_game).all()
+    return comments
+
+
+def add_comment(name, id_game, text):
+    session = Session(bind=engine)
+    id_user = session.query(Users).filter_by(Nickname=name).first().ID_user
+    comment = Comment(ID_user=id_user, ID_game=id_game, Comment_text=text)
+    session.add(comment)
+    session.commit()
+    session.close()
